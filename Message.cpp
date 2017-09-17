@@ -1,5 +1,7 @@
 #include "Message.h"
 
+#include<iostream>
+#include<string>
 Message::Message()
 {
     this->setDecrypted("");
@@ -14,18 +16,17 @@ bool Message::verifyKey(string *key)
         if( *it >= 65 && *it <= 90 )
             *it = *it + 32;
         else if( !(*it >= 97 && *it <= 122) && *it != 32 )
-            return 0;
+            return false;
     }
-    return 1;
+    return true;
 }
 void Message::Encrypt()
 {
     char cAux, a, b;
     bool bAux;
-    string encrypted="";
     if(this->getKey() == "" || this->getDecrypted() == "")
         return;
-    for (string::iterator dIt = this->getDecrypted().begin(), kIt = this->getKey().begin(); dIt != this->getDecrypted().end(); dIt++)
+    for(string::iterator dIt = this->getDecrypted().begin(), kIt = this->getKey().begin(); dIt != this->getDecrypted().end(); dIt++)
     {
         bAux = false;
         cAux = *dIt;
@@ -38,7 +39,7 @@ void Message::Encrypt()
         }
         else if( cAux >= 97 && cAux <= 122)
         {
-            b = 97;
+            a = 97;
             b = 122;
             bAux = true;
             cAux = *kIt;
@@ -52,8 +53,9 @@ void Message::Encrypt()
             if(kIt == this->getKey().end())
                 kIt = this->getKey().begin();
         }
-        this->setEncrypted(this->getEncrypted() + cAux);
+        cout << cAux;
     }
+    cout << endl;
 }
 void Message::Decrypt()
 {
