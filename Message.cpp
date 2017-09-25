@@ -26,36 +26,35 @@ void Message::Encrypt()
     bool bAux;
     if(this->getKey() == "" || this->getDecrypted() == "")
         return;
-    for(string::iterator dIt = this->getDecrypted().begin(), kIt = this->getKey().begin(); dIt != this->getDecrypted().end(); dIt++)
+    for(int i=0, j=0; i < getDecrypted().length(); i++)
     {
         bAux = false;
-        cAux = *dIt;
+        cAux = getDecrypted()[i];
         if( cAux >= 65 && cAux <= 90)
         {
             a = 65;
             b = 90;
             bAux = true;
-            cAux = *kIt - 32;
+            cAux = getKey()[j] - 32;
         }
         else if( cAux >= 97 && cAux <= 122)
         {
             a = 97;
             b = 122;
             bAux = true;
-            cAux = *kIt;
+            cAux = getKey()[j];
         }
         if (bAux)
         {
-            cAux += *dIt - a;
+            cAux += getDecrypted()[i] - a;
             if(cAux > b)
                 cAux -= 26;
-            kIt++;
-            if(kIt == this->getKey().end())
-                kIt = this->getKey().begin();
+            j++;
+            if(j == this->getKey().length())
+                j = 0;
         }
-        cout << cAux;
+        setEncrypted(getEncrypted() + cAux);
     }
-    cout << endl;
 }
 void Message::Decrypt()
 {

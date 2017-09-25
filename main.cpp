@@ -6,6 +6,7 @@ using namespace std;
 
 int main()
 {
+    //Test: Decrypted = atacarbasesul | Key = limao | Encrypted = lbmcocjmssdcx
     while(true){
         string aux, aux1;
         getline(cin, aux);
@@ -16,7 +17,7 @@ int main()
         m.setKey(aux1);
 
         m.Encrypt();
-        cout << m.getEncrypted();
+        cout << m.getEncrypted() << endl;
     }
     return 0;
 }
